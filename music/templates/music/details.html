@@ -1,0 +1,72 @@
+{% extends 'music/base.html' %}
+
+{% block title %}{{ album.name }}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid row" style="margin-top: 150px; margin-left: 15px;">
+	<div class="card col-3">
+		<img src="{{ album.logo }}" class="rounded-circle" style="width: 100%;">
+		<div style="text-align: center; margin-top: 50px;">
+			<h4 style="font-size: 50px;">{{ album }}</h3>
+			<h4 style="font-size: 40px;">{{ album.genre }}</h4>
+		</div>
+	</div>
+
+	<div class="card col-5" style="margin-left: 50px; font-size: 20px;">
+		<div style="margin-bottom: 25px; margin-top: 25px;">
+		<h2 style="font-size: 50px; text-align: center;">All Songs</h2>
+		<div class="table-responsive">
+			<table class="table" style="width: 100%;">
+				<thead">
+					<tr style="font-size: 30px;">
+						<th>Title</th>
+						<th>Favorite</th>
+						<th>Action</th>
+						<th>Star</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for song in album.song_set.all %}
+					<tr>
+						<td>
+							<h2 style="margin-left: 10px;">{{ song }}</h2>
+						</td>
+						<td>
+							<form action="{% url 'favoriteSong' album.title song.title 'details' %}">
+								<input type="submit" value="Favorite" class="btn btn-outline-dark">
+							</form>
+						</td>
+						<td>
+							<form action="{% url 'removeSong' album.title song.title %}">
+								<input type="submit" value="Remove" class="btn btn-danger">
+							</form>
+						</td>
+						{% if song.favorite %}
+						<td>
+							<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Gold_Star.svg/2000px-Gold_Star.svg.png" style="width: 30px; height: 30px;">
+						</td>
+						{% endif %}
+						{% endfor %}
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		</div>
+	</div>
+
+	<div class="card col-3" style=" font-size: 20px; margin-left: 50px; text-align: center;">
+		<h3 style="font-size: 50px; margin-top: 25px;">Add New Song</h3>
+				<hr style="margin-top: -0px;">
+				<h2 style="margin-bottom: 50px;">Title:</h2>
+		<form action="{% url 'newSong' album.title %}" method="post">
+			{% csrf_token %}
+			<input type="text" name="title" id="title"><br>
+			<input style="margin-top: 50px;" class="btn btn-dark btn-lg" type="submit" value="New Song">
+		</form>
+	</div>
+</div>
+</div>
+
+{% endblock %}

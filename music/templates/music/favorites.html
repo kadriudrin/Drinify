@@ -1,0 +1,45 @@
+{% extends 'music/base.html' %}
+
+{% block title %}{{ 'Favorite Songs' }}{% endblock %}
+
+{% block body %}
+
+	<div class="container-fluid row" style="margin-top: 150px; margin-left: 50px;">
+
+	<div class="card col-8">
+		<h1 style="font-size: 50px;text-align: center;">Favorited Songs</h1>
+		<div class="table-responsive">
+			<table class="table" style="width: 100%;">
+				<thead>
+					<tr>
+						<th><h1>Title</h1></th>
+						<th>Remove Star</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for song in object_list %}
+					<tr>
+						<td>
+							<h2>{{ song }}</h2>
+						</td>
+						<td>
+							<form action="{% url 'favoriteSong' song.album.title song.title 'favorites' %}">
+								<input type="submit" value="Remove" class="btn btn-danger">
+							</form>
+						</td>
+						<td>
+							<form action="{% url 'details' song.album.title %}">
+								<input type="submit" value="Go To Album" class="btn btn-dark">
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	</div>
+
+{% endblock %}

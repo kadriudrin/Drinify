@@ -1,0 +1,30 @@
+{% extends 'music/base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+
+<div class="row container-fluid" style="margin: 15px; margin-top: 100px;">
+
+{% for album in object_list %}
+
+	<div class="col-sm-3 card bg-light" style="margin-left: 100px; margin-top: 100px;">
+		<a href="{% url 'details' album.title %}">
+		<img src="{{ album.logo }}" class="card-img rounded-circle border-light" style="width:100%;">
+		</a>
+		<div class="card-body">
+			<div class="text-dark" style="text-align: center;">
+				<h3 class="card-title">{{ album }}</h3>
+				<p class="card-text">{{ album.genre }}</p>
+				<form action="{% url 'details' album.title %}">
+					<input type="submit" value="Details" class="btn btn-dark btn-lg btn-block">
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

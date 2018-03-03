@@ -1,0 +1,14 @@
+<form action="{% url 'newAlbum' %}" method="post">
+	
+	{% csrf_token %}		
+	Title:<br>
+	<input type="text" name="title" id="title"><br>
+	Artist:<br>
+	<input type="text" name="artist" id="artist"><br>
+	Genre:<br>
+	<input type="text" name="genre" id="genre"><br>
+	Logo:<br>
+	<input type="text" name="logo" id="logo"><br>
+
+	<input type="submit" value="addAlbum">
+</form>
